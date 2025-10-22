@@ -7,7 +7,7 @@ import lombok.Getter;
  * opcode 枚举
  *
  * @author hui
- * @since 2025-10-21
+ * @since 1.0.0
  */
 @Getter
 @AllArgsConstructor
@@ -38,7 +38,7 @@ public enum OpCode {
     /**
      * 根据值获取枚举
      *
-     * @param value 值
+     * @param value 枚举值
      * @return 枚举
      */
     public static OpCode of(int value) {

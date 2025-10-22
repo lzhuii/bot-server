@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * 回调验证服务
+ *
  * @author hui
- * @since 2025-01-15
+ * @since 1.0.0
  */
 @Slf4j
 @Service

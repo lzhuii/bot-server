@@ -10,6 +10,12 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * 消息分发服务
+ *
+ * @author hui
+ * @since 1.0.0
+ */
 @Slf4j
 @Service
 public class DispatchService {

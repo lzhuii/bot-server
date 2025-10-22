@@ -7,7 +7,7 @@ import java.util.List;
  * 成员对象
  *
  * @author hui
- * @since 2025-01-04
+ * @since 1.0.0
  */
 public record Member(
         // 频道id

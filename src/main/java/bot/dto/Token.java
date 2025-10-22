@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 调用凭证
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 public record Token(
         // 获取到的凭证

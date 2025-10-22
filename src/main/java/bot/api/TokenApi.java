@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
  * QQ Token API接口
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 public interface TokenApi {
     @PostExchange("/app/getAppAccessToken")

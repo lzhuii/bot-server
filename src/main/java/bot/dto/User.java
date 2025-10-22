@@ -4,7 +4,7 @@ package bot.dto;
  * 用户
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 public record User(
         // 用户id

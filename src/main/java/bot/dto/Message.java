@@ -7,7 +7,7 @@ import java.util.List;
  * QQ 消息
  *
  * @author hui
- * @since 2025-02-08
+ * @since 1.0.0
  */
 public record Message(
         // 消息 id

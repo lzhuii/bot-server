@@ -5,7 +5,7 @@ package bot.dto;
  * 通用数据结构
  *
  * @author hui
- * @since 2025-01-04
+ * @since 1.0.0
  */
 public record Payload<T>(
         // 事件id

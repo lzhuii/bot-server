@@ -18,7 +18,7 @@ import java.time.Duration;
  * QQ Token 过滤器
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 @Slf4j
 @Component

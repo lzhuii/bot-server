@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 启动类
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 @SpringBootApplication
 public class BotApplication {

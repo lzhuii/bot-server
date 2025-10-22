@@ -2,20 +2,22 @@ package bot.controller;
 
 import bot.dto.Payload;
 import bot.dto.request.VerifyRequest;
+import bot.enums.OpCode;
 import bot.service.DispatchService;
 import bot.service.VerifyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import bot.enums.OpCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * webhook 控制器
+ *
  * @author hui
- * @since 2024-12-28
+ * @since 1.0.0
  */
 @Slf4j
 @RestController

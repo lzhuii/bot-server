@@ -3,6 +3,12 @@ package bot.dto.request;
 import bot.dto.Message;
 import lombok.Builder;
 
+/**
+ * 发送消息请求参数
+ *
+ * @author hui
+ * @since 1.0.0
+ */
 @Builder
 public record MessageRequest(
         // 消息类型：0 是文本，2 是 markdown，3 ark，4 embed，7 media 富媒体

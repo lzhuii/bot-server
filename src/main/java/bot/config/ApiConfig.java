@@ -11,10 +11,10 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 /**
- * 机器人配置类
+ * API配置类
  *
  * @author hui
- * @since 2024-09-29
+ * @since 1.0.0
  */
 @Configuration
 public class ApiConfig {

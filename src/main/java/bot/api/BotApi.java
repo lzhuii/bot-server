@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
  * QQ 机器人 API 接口
  *
  * @author hui
- * @since 2025-01-12
+ * @since 1.0.0
  */
 public interface BotApi {
     @PostExchange("/v2/users/{userId}/messages")

@@ -1,10 +1,10 @@
 package bot.dto.request;
 
 /**
- * Webhook 回调验证
+ * webhook回调验证请求参数
  *
  * @author hui
- * @since 2025-02-08
+ * @since 1.0.0
  */
 public record VerifyRequest(
         // 需要计算签名的字符串
