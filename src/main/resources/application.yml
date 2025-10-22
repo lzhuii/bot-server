@@ -11,6 +11,13 @@ spring:
   data:
     redis:
       host: 127.0.0.1
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      base-url: https://dashscope.aliyuncs.com
+      chat:
+        options:
+          model: qwen3-max
 
 # 服务配置
 server:
