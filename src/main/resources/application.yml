@@ -1,0 +1,28 @@
+# Spring Boot 配置
+spring:
+  application:
+    name: bot
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+  data:
+    redis:
+      host: 127.0.0.1
+
+# 服务配置
+server:
+  port: 8443
+
+# 日志配置
+logging:
+  file:
+    name: ./log/bot.log
+
+# 应用配置
+bot:
+  app-id: ${BOT_APP_ID}
+  app-secret: ${BOT_APP_SECRET}
+

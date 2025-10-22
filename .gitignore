@@ -1,0 +1,10 @@
+.idea/
+*.iml
+.mvn/
+.git
+.gitattributes
+HELP.md
+mvnw
+mvnw.cmd
+target/
+log/
