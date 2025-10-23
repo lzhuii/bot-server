@@ -4,9 +4,9 @@ import bot.api.BotApi;
 import bot.dto.Message;
 import bot.dto.Payload;
 import bot.dto.request.MessageRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
@@ -35,8 +35,7 @@ public class DispatchService {
         this.chatModel = chatModel;
     }
 
-    @SneakyThrows
-    public void dispatch(Payload<JsonNode> payload) {
+    public void dispatch(Payload<JsonNode> payload) throws JsonProcessingException {
         log.info("收到用户消息 {}", payload.d());
         Message message = objectMapper.readValue(payload.d().toString(), Message.class);
         chatModel.stream(message.content())
