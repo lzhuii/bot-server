@@ -37,7 +37,7 @@ public class DispatchService {
 
     @SneakyThrows
     public void dispatch(Payload<JsonNode> payload) {
-        log.info("收到用户消息");
+        log.info("收到用户消息 {}", payload.d());
         Message message = objectMapper.readValue(payload.d().toString(), Message.class);
         chatModel.stream(message.content())
                 .collect(StringBuilder::new, StringBuilder::append)
