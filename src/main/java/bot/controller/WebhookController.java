@@ -38,8 +38,8 @@ public class WebhookController {
 
     @PostMapping("/webhook")
     public Object webhook(@RequestBody Payload<JsonNode> payload) throws JsonProcessingException {
+        log.info("收到Webhook请求 {}", payload);
         OpCode opCode = OpCode.of(payload.op());
-        log.info("收到Webhook请求 {}", opCode.getCode());
         switch (opCode) {
             case VERIFY -> {
                 VerifyRequest request = objectMapper.readValue(payload.d().toString(), VerifyRequest.class);

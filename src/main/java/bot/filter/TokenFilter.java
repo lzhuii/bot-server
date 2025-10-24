@@ -40,8 +40,8 @@ public class TokenFilter implements ExchangeFilterFunction {
         return redisTemplate.opsForValue()
                 .get(appId)
                 .switchIfEmpty(Mono.defer(this::getAccessToken))
+                .doOnNext(accessToken -> log.info("使用AccessToken"))
                 .flatMap(accessToken -> {
-                    log.info("添加 AccessToken {}", accessToken);
                     String authorization = String.format("QQBot %s", accessToken);
                     ClientRequest newRequest = ClientRequest.from(request)
                             .header("Authorization", authorization)
@@ -58,10 +58,10 @@ public class TokenFilter implements ExchangeFilterFunction {
     private Mono<String> getAccessToken() {
         TokenRequest request = new TokenRequest(appId, appSecret);
         return tokenApi.getToken(request)
+                .doOnNext(token -> log.info("获取AccessToken"))
                 .flatMap(token -> {
                     String accessToken = token.accessToken();
                     Long expiresIn = token.expiresIn();
-                    log.info("获取 AccessToken {} {}", accessToken, expiresIn);
                     Duration duration = Duration.ofSeconds(expiresIn);
                     return redisTemplate.opsForValue()
                             .set(appId, accessToken, duration)

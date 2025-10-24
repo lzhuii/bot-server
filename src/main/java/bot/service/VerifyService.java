@@ -30,10 +30,10 @@ public class VerifyService {
         // 生成签名并转换为十六进制格式的字符串
         byte[] signatureBytes = signer.generateSignature();
         String signature = Hex.toHexString(signatureBytes);
-        log.info("生成签名: {}", signature);
+        log.info("生成签名 {}", signature);
         // 构建并返回验证响应
         Verify verify = new Verify(plainToken, signature);
-        log.info("返回响应: {}", verify);
+        log.info("返回响应 {}", verify);
         return verify;
     }
 
