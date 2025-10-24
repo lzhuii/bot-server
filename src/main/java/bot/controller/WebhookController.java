@@ -40,18 +40,14 @@ public class WebhookController {
     public Object webhook(@RequestBody Payload<JsonNode> payload) throws JsonProcessingException {
         log.info("收到Webhook请求 {}", payload);
         OpCode opCode = OpCode.of(payload.op());
-        switch (opCode) {
-            case VERIFY -> {
-                VerifyRequest request = objectMapper.readValue(payload.d().toString(), VerifyRequest.class);
-                return verifyService.verify(request);
-            }
-            case DISPATCH -> {
-                dispatchService.dispatch(payload);
-                return Void.TYPE;
-            }
-            default -> {
-                return Void.TYPE;
-            }
+        if (opCode == OpCode.VERIFY) {
+            // 回调验证
+            VerifyRequest request = objectMapper.readValue(payload.d().toString(), VerifyRequest.class);
+            return verifyService.verify(request);
+        } else if (opCode == OpCode.DISPATCH) {
+            // 消息分发
+            dispatchService.dispatch(payload);
         }
+        return Void.TYPE;
     }
 }
