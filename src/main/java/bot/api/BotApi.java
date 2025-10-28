@@ -1,8 +1,10 @@
 package bot.api;
 
+import bot.dto.User;
 import bot.dto.request.MessageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.PostExchange;
 import reactor.core.publisher.Mono;
 
@@ -13,6 +15,9 @@ import reactor.core.publisher.Mono;
  * @since 1.0.0
  */
 public interface BotApi {
+    @GetExchange("/users/@me")
+    Mono<User> me();
+
     @PostExchange("/v2/users/{userId}/messages")
     Mono<String> sendToUser(@PathVariable String userId, @RequestBody MessageRequest request);
 
