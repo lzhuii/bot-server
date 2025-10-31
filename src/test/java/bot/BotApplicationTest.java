@@ -1,9 +1,9 @@
 package bot;
 
 import bot.api.BotApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,15 +21,19 @@ class BotApplicationTest {
     @Resource
     ObjectMapper objectMapper;
 
+    @SneakyThrows
+    <T> boolean log(T object) {
+        log.info("{}", objectMapper.writeValueAsString(object));
+        return true;
+    }
+
     @Test
-    void me() {
-        StepVerifier.create(botApi.me()).expectNextMatches(user -> {
-            try {
-                log.info("{}", objectMapper.writeValueAsString(user));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-            return true;
-        }).verifyComplete();
+    void getUserInfo() {
+        StepVerifier.create(botApi.getUserInfo()).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getGuilds() {
+        StepVerifier.create(botApi.getGuilds()).expectNextMatches(this::log).verifyComplete();
     }
 }
