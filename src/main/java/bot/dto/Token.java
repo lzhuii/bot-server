@@ -1,7 +1,5 @@
 package bot.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * 调用凭证
  *

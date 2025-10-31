@@ -16,6 +16,10 @@ import reactor.test.StepVerifier;
 @Slf4j
 @SpringBootTest
 class BotApplicationTest {
+    public static final String GUILD_ID = "";
+    public static final String CHANNEL_ID = "";
+    public static final String USER_ID = "";
+
     @Resource
     BotApi botApi;
     @Resource
@@ -39,6 +43,26 @@ class BotApplicationTest {
 
     @Test
     void getGuild() {
-        StepVerifier.create(botApi.getGuild("13699934094716597362")).expectNextMatches(this::log).verifyComplete();
+        StepVerifier.create(botApi.getGuild(GUILD_ID)).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getChannels() {
+        StepVerifier.create(botApi.getChannels(GUILD_ID)).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getChannel() {
+        StepVerifier.create(botApi.getChannel(CHANNEL_ID)).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getMembers() {
+        StepVerifier.create(botApi.getMembers(GUILD_ID, "0", 100)).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getMember() {
+        StepVerifier.create(botApi.getMember(GUILD_ID, USER_ID)).expectNextMatches(this::log).verifyComplete();
     }
 }
