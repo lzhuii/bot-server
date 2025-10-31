@@ -34,6 +34,15 @@ public interface BotApi {
     @GetExchange("/users/@me/guilds")
     Mono<List<Guild>> getGuilds();
 
+    /**
+     * 获取频道详情
+     *
+     * @param guildId 频道ID
+     * @return Guild
+     */
+    @GetExchange("/guilds/{guildId}")
+    Mono<Guild> getGuild(@PathVariable String guildId);
+
     @PostExchange("/v2/users/{userId}/messages")
     Mono<String> sendToUser(@PathVariable String userId, @RequestBody MessageRequest request);
 

@@ -36,4 +36,9 @@ class BotApplicationTest {
     void getGuilds() {
         StepVerifier.create(botApi.getGuilds()).expectNextMatches(this::log).verifyComplete();
     }
+
+    @Test
+    void getGuild() {
+        StepVerifier.create(botApi.getGuild("13699934094716597362")).expectNextMatches(this::log).verifyComplete();
+    }
 }
