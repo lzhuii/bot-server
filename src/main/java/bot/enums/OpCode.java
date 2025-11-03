@@ -38,15 +38,15 @@ public enum OpCode {
     /**
      * 根据值获取枚举
      *
-     * @param value 枚举值
+     * @param code 枚举值
      * @return 枚举
      */
-    public static OpCode of(int value) {
-        for (OpCode opCode : values()) {
-            if (opCode.code == value) {
-                return opCode;
+    public static OpCode of(int code) {
+        for (OpCode value : values()) {
+            if (value.code == code) {
+                return value;
             }
         }
-        throw new IllegalArgumentException("Unknown opcode " + value);
+        throw new IllegalArgumentException("Unknown opcode " + code);
     }
 }
