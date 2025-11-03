@@ -68,6 +68,8 @@ public interface BotApi {
      * 获取频道成员列表
      *
      * @param guildId 频道ID
+     * @param after   第一个ID
+     * @param limit   条数
      * @return Member列表
      */
     @GetExchange("/guilds/{guildId}/members")

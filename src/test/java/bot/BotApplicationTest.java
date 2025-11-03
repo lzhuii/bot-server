@@ -16,9 +16,9 @@ import reactor.test.StepVerifier;
 @Slf4j
 @SpringBootTest
 class BotApplicationTest {
-    public static final String GUILD_ID = "";
-    public static final String CHANNEL_ID = "";
-    public static final String USER_ID = "";
+    public static final String GUILD_ID = System.getenv("GUILD_ID");
+    public static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
+    public static final String USER_ID = System.getenv("USER_ID");
 
     @Resource
     BotApi botApi;
