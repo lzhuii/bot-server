@@ -4,30 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 子频道子类型枚举
+ * 子频道私密类型枚举
  *
  * @author hui
  * @since 1.0.0
  */
 @Getter
 @AllArgsConstructor
-public enum ChannelSubType implements BaseEnum {
+public enum PrivateType implements BaseEnum {
     /**
-     * 闲聊
+     * 公开频道
      */
-    CHATTING(0),
+    PUBLIC(0),
     /**
-     * 公告
+     * 群主管理员可见
      */
-    ANNOUNCEMENT(1),
+    OWNER_ADMIN(1),
     /**
-     * 攻略
+     * 群主管理员+指定成员
      */
-    GUIDE(2),
-    /**
-     * 开黑
-     */
-    GANG_UP(3);
+    OWNER_ADMIN_SPECIFY(2);
 
     /**
      * 枚举值
@@ -40,7 +36,7 @@ public enum ChannelSubType implements BaseEnum {
      * @param code 枚举值
      * @return 枚举
      */
-    public static ChannelSubType getByCode(int code) {
-        return BaseEnum.of(ChannelSubType.class, code);
+    public static PrivateType of(int code) {
+        return BaseEnum.of(PrivateType.class, code);
     }
 }
