@@ -5,6 +5,8 @@ import bot.dto.Guild;
 import bot.dto.Member;
 import bot.dto.User;
 import bot.dto.request.MessageRequest;
+import bot.dto.response.ApiPermissionsResponse;
+import bot.dto.response.RolesResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,6 +86,24 @@ public interface BotApi {
      */
     @GetExchange("/guilds/{guildId}/members/{userId}")
     Mono<Member> getMember(@PathVariable String guildId, @PathVariable String userId);
+
+    /**
+     * 获取频道身份组列表
+     *
+     * @param guildId 频道ID
+     * @return RolesResponse
+     */
+    @GetExchange("/guilds/{guildId}/roles")
+    Mono<RolesResponse> getRoles(@PathVariable String guildId);
+
+    /**
+     * 获取机器人在频道可用权限列表
+     *
+     * @param guildId 频道ID
+     * @return Role
+     */
+    @GetExchange("/guilds/{guildId}/api_permission")
+    Mono<ApiPermissionsResponse> getApiPermissions(@PathVariable String guildId);
 
     @PostExchange("/v2/users/{userId}/messages")
     Mono<String> sendToUser(@PathVariable String userId, @RequestBody MessageRequest request);

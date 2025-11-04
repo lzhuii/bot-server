@@ -65,4 +65,14 @@ class BotApplicationTest {
     void getMember() {
         StepVerifier.create(botApi.getMember(GUILD_ID, USER_ID)).expectNextMatches(this::log).verifyComplete();
     }
+
+    @Test
+    void getRoles() {
+        StepVerifier.create(botApi.getRoles(GUILD_ID)).expectNextMatches(this::log).verifyComplete();
+    }
+
+    @Test
+    void getApiPermissions() {
+        StepVerifier.create(botApi.getApiPermissions(GUILD_ID)).expectNextMatches(this::log).verifyComplete();
+    }
 }

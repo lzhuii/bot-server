@@ -12,7 +12,7 @@ public record Role(
         // 名称
         String name,
         // ARGB的HEX十六进制颜色值转换后的十进制数值
-        Integer color,
+        Long color,
         // 是否在成员列表中单独展示: 0-否, 1-是
         Integer hoist,
         // 人数
