@@ -8,13 +8,6 @@ package bot.enums;
  */
 public interface BaseEnum {
     /**
-     * 枚举值
-     *
-     * @return 枚举值
-     */
-    int getCode();
-
-    /**
      * 根据值获取枚举
      *
      * @param enumClass 枚举类
@@ -30,4 +23,11 @@ public interface BaseEnum {
         }
         throw new IllegalArgumentException("Invalid code: " + code);
     }
+
+    /**
+     * 枚举值
+     *
+     * @return 枚举值
+     */
+    int getCode();
 }
