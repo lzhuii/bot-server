@@ -1,6 +1,5 @@
 package bot.dto;
 
-
 /**
  * 通用数据结构
  *

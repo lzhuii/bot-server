@@ -5,9 +5,8 @@ import bot.dto.request.VerifyRequest;
 import bot.enums.OpCode;
 import bot.service.DispatchService;
 import bot.service.VerifyService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import bot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,27 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class WebhookController {
-    private final ObjectMapper objectMapper;
+    private final JsonUtil jsonUtil;
     private final VerifyService verifyService;
     private final DispatchService dispatchService;
 
     public WebhookController(
-            ObjectMapper objectMapper,
+            JsonUtil jsonUtil,
             VerifyService verifyService,
             DispatchService dispatchService
     ) {
-        this.objectMapper = objectMapper;
+        this.jsonUtil = jsonUtil;
         this.verifyService = verifyService;
         this.dispatchService = dispatchService;
     }
 
     @PostMapping("/webhook")
-    public Object webhook(@RequestBody Payload<JsonNode> payload) throws JsonProcessingException {
+    public Object webhook(@RequestBody Payload<JsonNode> payload) {
         log.info("收到Webhook请求 {}", payload);
         OpCode opCode = OpCode.of(payload.op());
         if (opCode == OpCode.VERIFY) {
             // 回调验证
-            VerifyRequest request = objectMapper.readValue(payload.d().toString(), VerifyRequest.class);
+            VerifyRequest request = jsonUtil.readValue(payload.d().toString(), VerifyRequest.class);
             return verifyService.verify(request);
         } else if (opCode == OpCode.DISPATCH) {
             // 消息分发

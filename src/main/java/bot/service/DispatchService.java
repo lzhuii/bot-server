@@ -4,9 +4,8 @@ import bot.api.BotApi;
 import bot.dto.Message;
 import bot.dto.Payload;
 import bot.dto.request.MessageRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import bot.util.JsonUtil;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
@@ -21,22 +20,22 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 public class DispatchService {
-    private final ObjectMapper objectMapper;
+    private final JsonUtil jsonUtil;
     private final BotApi botApi;
     private final ChatModel chatModel;
 
     public DispatchService(
-            ObjectMapper objectMapper,
+            JsonUtil jsonUtil,
             BotApi botApi,
             ChatModel chatModel
     ) {
-        this.objectMapper = objectMapper;
+        this.jsonUtil = jsonUtil;
         this.botApi = botApi;
         this.chatModel = chatModel;
     }
 
-    public void dispatch(Payload<JsonNode> payload) throws JsonProcessingException {
-        Message message = objectMapper.readValue(payload.d().toString(), Message.class);
+    public void dispatch(Payload<JsonNode> payload) {
+        Message message = jsonUtil.readValue(payload.d().toString(), Message.class);
         chatModel.stream(message.content())
                 .collect(StringBuilder::new, StringBuilder::append)
                 .flatMap(response -> {

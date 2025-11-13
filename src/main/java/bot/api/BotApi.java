@@ -29,7 +29,7 @@ public interface BotApi {
      * @return User
      */
     @GetExchange("/users/@me")
-    Mono<User> getUserInfo();
+    Mono<User> getUser();
 
     /**
      * 获取用户频道列表

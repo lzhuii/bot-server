@@ -1,9 +1,8 @@
 package bot;
 
 import bot.api.BotApi;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import bot.util.JsonUtil;
 import jakarta.annotation.Resource;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,17 +22,16 @@ class BotApplicationTest {
     @Resource
     BotApi botApi;
     @Resource
-    ObjectMapper objectMapper;
+    JsonUtil jsonUtil;
 
-    @SneakyThrows
     <T> boolean log(T object) {
-        log.info("{}", objectMapper.writeValueAsString(object));
+        log.info("{}", jsonUtil.writeValueAsString(object));
         return true;
     }
 
     @Test
     void getUserInfo() {
-        StepVerifier.create(botApi.getUserInfo()).expectNextMatches(this::log).verifyComplete();
+        StepVerifier.create(botApi.getUser()).expectNextMatches(this::log).verifyComplete();
     }
 
     @Test
