@@ -8,6 +8,11 @@ spring:
   data:
     redis:
       host: 127.0.0.1
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=bot
+    username: postgres
+    password: 123456
 
 # 服务配置
 server:
