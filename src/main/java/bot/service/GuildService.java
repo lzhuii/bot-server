@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GuildService {
-    private final GuildRepository guildRepository;
+    private final GuildRepository repository;
 
-    public GuildService(GuildRepository guildRepository) {
-        this.guildRepository = guildRepository;
+    public GuildService(GuildRepository repository) {
+        this.repository = repository;
     }
 
     public void save(GuildEntity entity) {
-        guildRepository.save(entity);
+        repository.save(entity);
     }
 }
