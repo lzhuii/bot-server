@@ -4,6 +4,7 @@ import bot.api.BotApi;
 import bot.entity.GuildEntity;
 import bot.service.GuildService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -25,17 +26,9 @@ public class StartupRunner implements CommandLineRunner {
     private void initGuilds() {
         botApi.getGuilds().subscribe(guilds -> guilds.forEach(guild -> {
             log.info("guild: {}", guild.id());
-            GuildEntity entity = GuildEntity.builder()
-                    .id(guild.id())
-                    .name(guild.name())
-                    .icon(guild.icon())
-                    .ownerId(guild.ownerId())
-                    .owner(guild.owner())
-                    .memberCount(guild.memberCount())
-                    .maxMembers(guild.maxMembers())
-                    .description(guild.description())
-                    .joinedAt(guild.joinedAt().toLocalDateTime())
-                    .build();
+            GuildEntity entity = new GuildEntity();
+            BeanUtils.copyProperties(guild, entity);
+            entity.setJoinedAt(guild.joinedAt().toLocalDateTime());
             guildService.save(entity);
         }));
     }
