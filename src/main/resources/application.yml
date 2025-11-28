@@ -5,14 +5,7 @@ spring:
   jackson:
     # 驼峰转下划线
     property-naming-strategy: SNAKE_CASE
-    # 忽略空字段
-    default-property-inclusion: non_null
-    serialization:
-      # 忽略空对象
-      fail-on-empty-beans: false
-    deserialization:
-      # 忽略未知字段
-      fail-on-unknown-properties: false
+
   data:
     redis:
       host: 127.0.0.1
