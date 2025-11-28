@@ -4,12 +4,11 @@ import bot.api.BotApi;
 import bot.dto.Message;
 import bot.dto.Payload;
 import bot.dto.request.MessageRequest;
-import bot.util.JsonUtil;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * 消息分发服务
@@ -20,37 +19,27 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 public class DispatchService {
-    private final JsonUtil jsonUtil;
+    private final JsonMapper jsonMapper;
     private final BotApi botApi;
-    private final ChatModel chatModel;
 
-    public DispatchService(
-            JsonUtil jsonUtil,
-            BotApi botApi,
-            ChatModel chatModel
-    ) {
-        this.jsonUtil = jsonUtil;
+    public DispatchService(JsonMapper jsonMapper, BotApi botApi) {
+        this.jsonMapper = jsonMapper;
         this.botApi = botApi;
-        this.chatModel = chatModel;
     }
 
     public void dispatch(Payload<JsonNode> payload) {
-        Message message = jsonUtil.readValue(payload.d().toString(), Message.class);
-        chatModel.stream(message.content())
-                .collect(StringBuilder::new, StringBuilder::append)
-                .flatMap(response -> {
-                    MessageRequest request = MessageRequest.builder()
-                            .content(response.toString())
-                            .msgId(message.id())
-                            .build();
-                    // 根据消息类型选择不同的消息发送方法
-                    return switch (payload.t()) {
-                        case "C2C_MESSAGE_CREATE" -> botApi.sendToUser(message.author().id(), request);
-                        case "GROUP_AT_MESSAGE_CREATE" -> botApi.sendToGroup(message.groupOpenid(), request);
-                        case "AT_MESSAGE_CREATE" -> botApi.sendToChannel(message.channelId(), request);
-                        case "DIRECT_MESSAGE_CREATE" -> botApi.sendToDirect(message.guildId(), request);
-                        default -> Mono.empty();
-                    };
-                }).subscribe();
+        Message message = jsonMapper.readValue(payload.d().toString(), Message.class);
+        MessageRequest request = MessageRequest.builder()
+                .content(message.content())
+                .msgId(message.id())
+                .build();
+        // 根据消息类型选择不同的消息发送方法
+        switch (payload.t()) {
+            case "C2C_MESSAGE_CREATE" -> botApi.sendToUser(message.author().id(), request).subscribe();
+            case "GROUP_AT_MESSAGE_CREATE" -> botApi.sendToGroup(message.groupOpenid(), request).subscribe();
+            case "AT_MESSAGE_CREATE" -> botApi.sendToChannel(message.channelId(), request).subscribe();
+            case "DIRECT_MESSAGE_CREATE" -> botApi.sendToDirect(message.guildId(), request).subscribe();
+            default -> Mono.empty().subscribe();
+        }
     }
 }

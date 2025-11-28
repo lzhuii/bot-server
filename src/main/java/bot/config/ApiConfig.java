@@ -4,15 +4,15 @@ package bot.config;
 import bot.api.BotApi;
 import bot.api.TokenApi;
 import bot.filter.TokenFilter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
+import org.springframework.http.codec.json.JacksonJsonDecoder;
+import org.springframework.http.codec.json.JacksonJsonEncoder;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * API配置类
@@ -22,18 +22,18 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
  */
 @Configuration
 public class ApiConfig {
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
 
-    public ApiConfig(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public ApiConfig(JsonMapper jsonMapper) {
+        this.jsonMapper = jsonMapper;
     }
 
     private <T> T createClient(Class<T> clazz, String baseUrl, ExchangeFilterFunction... filters) {
         WebClient.Builder builder = WebClient.builder()
                 .baseUrl(baseUrl)
                 .codecs(configurer -> {
-                    configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper));
-                    configurer.defaultCodecs().jackson2JsonEncoder(new Jackson2JsonEncoder(objectMapper));
+                    configurer.defaultCodecs().jacksonJsonDecoder(new JacksonJsonDecoder(jsonMapper));
+                    configurer.defaultCodecs().jacksonCborEncoder(new JacksonJsonEncoder(jsonMapper));
                 });
         for (ExchangeFilterFunction filter : filters) {
             builder.filter(filter);

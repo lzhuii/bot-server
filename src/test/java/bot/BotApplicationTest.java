@@ -1,12 +1,12 @@
 package bot;
 
 import bot.api.BotApi;
-import bot.util.JsonUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.test.StepVerifier;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author hui
@@ -22,10 +22,10 @@ class BotApplicationTest {
     @Resource
     BotApi botApi;
     @Resource
-    JsonUtil jsonUtil;
+    JsonMapper jsonMapper;
 
     <T> boolean log(T object) {
-        log.info("{}", jsonUtil.writeValueAsString(object));
+        log.info("{}", jsonMapper.writeValueAsString(object));
         return true;
     }
 
