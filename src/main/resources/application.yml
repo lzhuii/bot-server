@@ -5,7 +5,6 @@ spring:
   jackson:
     # 驼峰转下划线
     property-naming-strategy: SNAKE_CASE
-
   data:
     redis:
       host: 127.0.0.1
