@@ -1,13 +1,16 @@
 package bot.service;
 
 import bot.dao.GuildRepository;
+import bot.dto.Guild;
 import bot.entity.GuildEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author hui
  * @since 1.0.0
  */
+@Slf4j
 @Service
 public class GuildService {
     private final GuildRepository repository;
@@ -16,7 +19,9 @@ public class GuildService {
         this.repository = repository;
     }
 
-    public void save(GuildEntity entity) {
+    public void save(Guild guild) {
+        log.info("save guild: {}", guild.id());
+        GuildEntity entity = guild.toEntity();
         repository.save(entity);
     }
 }

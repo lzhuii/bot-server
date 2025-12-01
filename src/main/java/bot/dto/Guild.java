@@ -1,5 +1,8 @@
 package bot.dto;
 
+import bot.entity.GuildEntity;
+import org.springframework.beans.BeanUtils;
+
 import java.time.OffsetDateTime;
 
 /**
@@ -27,4 +30,11 @@ public record Guild(
         String description,
         // 加入时间
         OffsetDateTime joinedAt
-) {}
+) {
+    public GuildEntity toEntity() {
+        GuildEntity entity = new GuildEntity();
+        BeanUtils.copyProperties(this, entity);
+        entity.setJoinedAt(joinedAt.toLocalDateTime());
+        return entity;
+    }
+}

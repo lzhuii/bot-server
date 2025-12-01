@@ -1,5 +1,8 @@
 package bot.dto;
 
+import bot.entity.ChannelEntity;
+import org.springframework.beans.BeanUtils;
+
 /**
  * 子频道对象
  *
@@ -31,4 +34,10 @@ public record Channel(
         String applicationId,
         // 用户拥有的子频道权限 Permissions
         String permissions
-) {}
+) {
+    public ChannelEntity toEntity() {
+        ChannelEntity entity = new ChannelEntity();
+        BeanUtils.copyProperties(this, entity);
+        return entity;
+    }
+}
