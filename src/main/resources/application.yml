@@ -27,4 +27,5 @@ logging:
 bot:
   app-id: ${BOT_APP_ID}
   app-secret: ${BOT_APP_SECRET}
+  init: false
 

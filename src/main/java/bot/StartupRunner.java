@@ -5,6 +5,7 @@ import bot.service.ChannelService;
 import bot.service.GuildService;
 import bot.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class StartupRunner implements CommandLineRunner {
+    @Value("${bot.init}")
+    private Boolean init;
     private final BotApi botApi;
     private final GuildService guildService;
     private final ChannelService channelService;
@@ -45,6 +48,11 @@ public class StartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        initGuilds();
+        if (init) {
+            log.info("初始化数据");
+            initGuilds();
+        } else {
+            log.info("未初始化数据");
+        }
     }
 }
