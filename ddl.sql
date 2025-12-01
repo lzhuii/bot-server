@@ -62,3 +62,33 @@ comment on column channel.application_id is '用于标识应用子频道应用�
 comment on column channel.permissions is '用户拥有的子频道权限 Permissions';
 comment on column channel.created_at is '创建时间';
 comment on column channel.updated_at is '更新时间';
+
+drop table if exists member;
+create table if not exists member
+(
+    id                 varchar(50)   not null,
+    username           varchar(20)   not null,
+    avatar             varchar(300)  not null,
+    bot                boolean       not null,
+    union_openid       varchar(50)   not null,
+    union_user_account varchar(50)   not null,
+    nick               varchar(20)   not null,
+    roles              varchar(20)[] not null,
+    joined_at          timestamp     not null,
+    guild_id           varchar(50),
+    created_at         timestamp     not null,
+    updated_at         timestamp     not null
+);
+comment on table member is '成员表';
+comment on column member.id is '用户id';
+comment on column member.username is '用户名';
+comment on column member.avatar is '用户头像地址';
+comment on column member.bot is '是否是机器人';
+comment on column member.union_openid is '特殊关联应用的 openid，需要特殊申请并配置后才会返回';
+comment on column member.union_user_account is '机器人关联的互联应用的用户信息，与union_openid关联的应用是同一个';
+comment on column member.nick is '用户昵称';
+comment on column member.roles is '用户在频道内的身份组ID, 默认值可参考DefaultRoles';
+comment on column member.joined_at is '用户加入频道的时间';
+comment on column member.guild_id is '频道id';
+comment on column member.created_at is '创建时间';
+comment on column member.updated_at is '更新时间';

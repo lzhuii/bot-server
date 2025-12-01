@@ -1,5 +1,8 @@
 package bot.dto;
 
+import bot.entity.MemberEntity;
+import org.springframework.beans.BeanUtils;
+
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -20,4 +23,12 @@ public record Member(
         List<String> roles,
         // 用户加入频道的时间
         OffsetDateTime joinedAt
-) {}
+) {
+    public MemberEntity toEntity() {
+        MemberEntity entity = new MemberEntity();
+        BeanUtils.copyProperties(this, entity);
+        BeanUtils.copyProperties(this.user, entity);
+        entity.setJoinedAt(this.joinedAt.toLocalDateTime());
+        return entity;
+    }
+}

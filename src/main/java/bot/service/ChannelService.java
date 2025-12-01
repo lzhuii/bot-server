@@ -1,6 +1,6 @@
 package bot.service;
 
-import bot.dao.ChannelRepository;
+import bot.repository.ChannelRepository;
 import bot.dto.Channel;
 import bot.entity.ChannelEntity;
 import lombok.extern.slf4j.Slf4j;

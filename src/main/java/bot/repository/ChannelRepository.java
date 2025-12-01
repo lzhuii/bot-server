@@ -1,4 +1,4 @@
-package bot.dao;
+package bot.repository;
 
 import bot.entity.ChannelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

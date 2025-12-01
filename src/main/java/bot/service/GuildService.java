@@ -1,6 +1,6 @@
 package bot.service;
 
-import bot.dao.GuildRepository;
+import bot.repository.GuildRepository;
 import bot.dto.Guild;
 import bot.entity.GuildEntity;
 import lombok.extern.slf4j.Slf4j;
